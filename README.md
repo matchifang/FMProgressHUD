@@ -14,7 +14,7 @@ HUD should show either one of the following combinations:
 5. image
 6. image with status
 
-![Example Screenshots](FMProgressHUD_example.png)
+![Example Screenshots](./ReadMe_Resources/FMProgressHUD_example.png)
 
 ## Demo
 See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for details
@@ -23,20 +23,20 @@ See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for d
 
 ### Swift Package Manager
 1. Copy the github URL for FMProgressHUD
-![Get Github URL](1_github_clone.png)
+![Get Github URL](./ReadMe_Resources/1_github_clone.png)
 
 2. In Project Settings -> Swift Package Manager, click +, paste the github URL and select the version settings
-![Add Swift Package](2_adding_package.png)
+![Add Swift Package](./ReadMe_Resources/2_adding_package.png)
 
 3. Added packages are shown under Project Settings -> Swift Package Manager and in Project Explorer
-![Added Package Shown](4_package_added.png)
-![Add package](5_package_shown.png)
+![Added Package Shown](./ReadMe_Resources/4_package_added.png)
+![Add package](./ReadMe_Resources/5_package_shown.png)
 
 4. Add `import FMProgressHUD` to files where you want to use the HUD
 
 ### Manual
-1. copy over the `FMProgressHUD` folder into your project
-2. add `import FMProgressHUD`
+1. Copy over the `FMProgressHUD` folder into your project
+2. Add `import FMProgressHUD`
 
 ## Usage
 
@@ -61,12 +61,16 @@ FMProgressHUD.showError(status: "Error")
 // show any image with a status
 let image = UIImage(systemName: "person.fill.checkmark")!
 FMProgressHUD.show(image: image, status: "Contact added")
+
+// dismiss the HUD
+FMProgressHUD.dismiss()
 ```
 
 FMProgressHUD static method configurations:
 ```swift
 static func show(status: String? = nil)
 static func showInfo(status: String? = nil)
+static func showSuccess(status: String? = nil)
 static func showError(status: String? = nil)
 static func show(image: UIImage, status: String? = nil)
 ```
@@ -90,3 +94,9 @@ var ringThickness: CGFloat = 2
 var labelFontSize: CGFloat = 15
 var style = FMProgressHUDStyle.light // Can be: light, dark, or custom
 ```
+### Customise AnimationType
+
+### Customise MaskType
+
+### Customise Style
+
