@@ -22,17 +22,15 @@ See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for d
 ## Installation
 
 ### Swift Package Manager
-1. Copy the github URL for FMProgressHUD <br />
-<a href="https://github.com/matchifang/FMProgressHUD/raw/main/ReadMe_Resources/1_github_clone.png"><img src="./ReadMe_Resources/1_github_clone.png" align="left" width="300"></a><br />
+1. Copy the github URL for FMProgressHUD
+![Github URL](./ReadMe_Resources/1_github_clone.png)
 
 2. In Project Settings -> Swift Package Manager, click +, paste the github URL and select the version settings
-<a href="https://github.com/matchifang/FMProgressHUD/raw/main/ReadMe_Resources/2_adding_package.png">
-<img src="./ReadMe_Resources/2_adding_package.png" align="left" width="600"></a><br />
+![Adding Swift Packages](./ReadMe_Resources/2_adding_package.png)
 
 3. Added packages are shown under Project Settings -> Swift Package Manager and in Project Explorer
-<a href="https://github.com/matchifang/FMProgressHUD/raw/main/ReadMe_Resources/1_github_clone.png"><img src="./ReadMe_Resources/4_package_added.png" align="left" width="600"></a>
-<a href="https://github.com/matchifang/FMProgressHUD/raw/main/ReadMe_Resources/2_adding_package.png">
-<img src="./ReadMe_Resources/5_package_shown.png" align="left" width="250"></a><br />
+![Added Swift Package in ](./ReadMe_Resources/4_package_added.png)
+![Added Swift Package in Project Explorer](./ReadMe_Resources/5_package_shown.png)
 
 4. Add `import FMProgressHUD` to files where you want to use the HUD<br />
 
