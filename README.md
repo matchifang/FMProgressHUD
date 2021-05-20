@@ -5,7 +5,8 @@
 ![SPM Compatible](https://img.shields.io/static/v1?label=SwiftPackageManager&message=compatible&color=green)
 
 Swift-based HUD for showing loading spinner, progress or any image with a status. <br />
-The library is compatible with Swift 5.2 and iOS 13+ <br />
+The library is compatible with Swift 5.2 and iOS 13+ 
+See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for demo<br />
 HUD should show either one of the following combinations:
 1. indefinite loading spinner
 2. indefinite loading spinner with status
@@ -14,15 +15,13 @@ HUD should show either one of the following combinations:
 5. image
 6. image with status
 
-![Example Screenshots](./ReadMe_Resources/FMProgressHUD_examples.png)
+![Example Screenshots](./ReadMe_Resources/examples.png)
 
-## Demo
-See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for details
 
 ## Installation
 
 ### Swift Package Manager
-1. Copy the github URL for FMProgressHUD
+1. Copy the github URL for FMProgressHUD<br />
 ![Github URL](./ReadMe_Resources/1_github_clone.png)
 
 2. In Project Settings -> Swift Package Manager, click +, paste the github URL and select the version settings
@@ -58,7 +57,7 @@ FMProgressHUD.showSuccess(status: "Success")
 // show error
 FMProgressHUD.showError(status: "Error")
 
-// show any image with a status
+// show an image with a status
 let image = UIImage(systemName: "person.fill.checkmark")!
 FMProgressHUD.show(image: image, status: "Contact added")
 
@@ -94,9 +93,16 @@ var ringThickness: CGFloat = 2
 var labelFontSize: CGFloat = 15
 var style = FMProgressHUDStyle.light // Can be: light, dark, or custom
 ```
-### Customise AnimationType
+### Customise Loading Animation
+You can set loading animation using `FMProgressHUD.animationType`<br />
+![Added Swift Package in Project Explorer](./ReadMe_Resources/loading.png)
 
-### Customise MaskType
+### Customise Mask
+You can set mask using `FMProgressHUD.maskType`<br />
+For custom masks color, set `FMProgressHUD.backgroundLayerColor`<br />
+![Added Swift Package in Project Explorer](./ReadMe_Resources/mask.png)
 
 ### Customise Style
-
+You can set style using `FMProgressHUD.style`<br />
+If `.custom` is selected, you can use customise using: `FMProgressHUD.hudViewCustomBlurEffect`, `FMProgressHUD.hudBackgroundColor`, and  `FMProgressHUD.hudForegroundColor`<br />
+![Added Swift Package in Project Explorer](./ReadMe_Resources/style.png)
