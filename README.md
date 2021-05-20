@@ -13,8 +13,9 @@ HUD should show either one of the following combinations:
 4. progress loading spinner with status
 5. image
 6. image with status
+<img src="./ReadMe_Resources/FMProgressHUD_examples.png" align="left" width="300" >
 
-![Example Screenshots](./ReadMe_Resources/FMProgressHUD_example.png)
+![Example Screenshots](./ReadMe_Resources/FMProgressHUD_examples.png){width=400px}
 
 ## Demo
 See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for details
