@@ -13,9 +13,8 @@ HUD should show either one of the following combinations:
 4. progress loading spinner with status
 5. image
 6. image with status
-<img src="./ReadMe_Resources/FMProgressHUD_examples.png" align="left" width="300" >
 
-![Example Screenshots](./ReadMe_Resources/FMProgressHUD_examples.png){width=400px}
+![Example Screenshots](./ReadMe_Resources/FMProgressHUD_examples.png)
 
 ## Demo
 See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for details
@@ -23,15 +22,15 @@ See [FMProgressHUD-Demo](https://github.com/matchifang/FMProgressHUD-Demo) for d
 ## Installation
 
 ### Swift Package Manager
-1. Copy the github URL for FMProgressHUD
-![Get Github URL](./ReadMe_Resources/1_github_clone.png)
+1. Copy the github URL for FMProgressHUD <br />
+<img src="./ReadMe_Resources/1_github_clone.png" align="left" max-width="300">
 
 2. In Project Settings -> Swift Package Manager, click +, paste the github URL and select the version settings
-![Add Swift Package](./ReadMe_Resources/2_adding_package.png)
+<img src="./ReadMe_Resources/2_adding_package.png" align="left" max-width="600">
 
 3. Added packages are shown under Project Settings -> Swift Package Manager and in Project Explorer
-![Added Package Shown](./ReadMe_Resources/4_package_added.png)
-![Add package](./ReadMe_Resources/5_package_shown.png)
+<img src="./ReadMe_Resources/4_package_added.png" align="left" max-width="600">
+<img src="./ReadMe_Resources/5_package_shown.png" align="left" max-width="250">
 
 4. Add `import FMProgressHUD` to files where you want to use the HUD
 
