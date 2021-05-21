@@ -68,12 +68,43 @@ public class FMProgressHUD {
     /// Animation of the loading spinner - default is `FMProgressHUDAnimationType.flat`
     public static var animationType = FMProgressHUDAnimationType.flat
     
-    /// Custom blur effect on the HUD when style is `FMProgressHUDAnimationType.custom` - default is `nil`
-    public static var hudViewCustomBlurEffect: UIBlurEffect? {
+    /// Style that determines foregorund, background, and blur effect colors  - default is `FMProgressHUDStyle.light`
+    public static var hudStyle = FMProgressHUDStyle.light {
         didSet {
-            if style == .custom {
+            if hudStyle != .custom {
+                let blurEffectStyle: UIBlurEffect.Style = hudStyle == .dark ? .dark : .light
+                let blurEffect = UIBlurEffect(style: blurEffectStyle)
+                FMProgressHUD.sharedView.hudView.effect = blurEffect
+            } else {
                 FMProgressHUD.sharedView.hudView.effect = hudViewCustomBlurEffect
             }
+            let foregroundColorForStyle = FMProgressHUD.sharedView.foregroundColorForStyle
+            FMProgressHUD.sharedView.hudView.backgroundColor = FMProgressHUD.sharedView.backgroundColorForStyle.withAlphaComponent(0.6)
+            FMProgressHUD.sharedView.backgroundRingView.strokeColor = foregroundColorForStyle.withAlphaComponent(0.1)
+            FMProgressHUD.sharedView.nativeSpinner.color = foregroundColorForStyle
+            FMProgressHUD.sharedView.flatSpinner.strokeColor = foregroundColorForStyle
+            FMProgressHUD.sharedView.statusLabel.textColor = foregroundColorForStyle
+            FMProgressHUD.sharedView.imageView?.tintColor = foregroundColorForStyle
+        }
+    }
+    
+    /// HUD background's background color - default is `UIColor.clear`
+    public static var backgroundColor = UIColor.clear {
+        didSet {
+            FMProgressHUD.sharedView.backgroundView.backgroundColor = backgroundColor
+        }
+    }
+    
+    /// HUD foregorund color  - default is `UIColor.black`
+    public static var hudForegroundColor = UIColor.black {
+        didSet {
+            let foregroundColorForStyle = FMProgressHUD.sharedView.foregroundColorForStyle
+            FMProgressHUD.sharedView.nativeSpinner.color = foregroundColorForStyle
+            FMProgressHUD.sharedView.flatSpinner.strokeColor = foregroundColorForStyle
+            FMProgressHUD.sharedView.backgroundRingView.strokeColor = foregroundColorForStyle.withAlphaComponent(0.1)
+            FMProgressHUD.sharedView.nativeSpinner.color = foregroundColorForStyle
+            FMProgressHUD.sharedView.statusLabel.textColor = foregroundColorForStyle
+            FMProgressHUD.sharedView.imageView?.tintColor = foregroundColorForStyle
         }
     }
     
@@ -84,13 +115,6 @@ public class FMProgressHUD {
         }
     }
     
-    /// HUD background's background color - default is `UIColor.clear`
-    public static var backgroundLayerColor = UIColor.clear {
-        didSet {
-            FMProgressHUD.sharedView.backgroundView.backgroundColor = backgroundLayerColor
-        }
-    }
-    
     /// HUD background's background mask type - default is `FMProgressHUDMaskType.clear`
     public static var maskType = FMProgressHUDMaskType.clear {
         didSet {
@@ -98,9 +122,18 @@ public class FMProgressHUD {
             case .black:
                 FMProgressHUD.sharedView.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.4)
             case .custom:
-                FMProgressHUD.sharedView.backgroundView.backgroundColor = FMProgressHUD.backgroundLayerColor
+                FMProgressHUD.sharedView.backgroundView.backgroundColor = FMProgressHUD.backgroundColor
             default:
                 FMProgressHUD.sharedView.backgroundView.backgroundColor = .clear
+            }
+        }
+    }
+    
+    /// Custom blur effect on the HUD when style is `FMProgressHUDAnimationType.custom` - default is `nil`
+    public static var hudViewCustomBlurEffect: UIBlurEffect? {
+        didSet {
+            if hudStyle == .custom {
+                FMProgressHUD.sharedView.hudView.effect = hudViewCustomBlurEffect
             }
         }
     }
@@ -142,34 +175,6 @@ public class FMProgressHUD {
     public static var labelFontSize: CGFloat = 15 {
         didSet {
             FMProgressHUD.sharedView.statusLabel.font = UIFont.systemFont(ofSize: labelFontSize)
-        }
-    }
-    
-    /// Style that determines foregorund, background, and blur effect colors  - default is `FMProgressHUDStyle.light`
-    public static var style = FMProgressHUDStyle.light {
-        didSet {
-            if style != .custom {
-                let blurEffectStyle = style == .dark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light
-                let blurEffect = UIBlurEffect(style: blurEffectStyle)
-                FMProgressHUD.sharedView.hudView.effect = blurEffect
-            } else {
-                FMProgressHUD.sharedView.hudView.effect = hudViewCustomBlurEffect
-            }
-            FMProgressHUD.sharedView.hudView.backgroundColor = FMProgressHUD.sharedView.backgroundColorForStyle.withAlphaComponent(0.6)
-            FMProgressHUD.sharedView.nativeSpinner.color = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.flatSpinner.strokeColor = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.statusLabel.textColor = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.imageView?.tintColor = FMProgressHUD.sharedView.foregroundColorForStyle
-        }
-    }
-    
-    /// HUD foregorund color  - default is `UIColor.black`
-    public static var hudForegroundColor = UIColor.black {
-        didSet {
-            FMProgressHUD.sharedView.nativeSpinner.color = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.flatSpinner.strokeColor = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.statusLabel.textColor = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.imageView?.tintColor = FMProgressHUD.sharedView.foregroundColorForStyle
         }
     }
     
@@ -250,7 +255,7 @@ public class FMProgressHUD {
     }()
     
     private lazy var hudView: UIVisualEffectView = {
-        let blurEffectStyle = FMProgressHUD.style == .dark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light
+        let blurEffectStyle = FMProgressHUD.hudStyle == .dark ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light
         let blurEffect = UIBlurEffect(style: blurEffectStyle)
         let hudView = UIVisualEffectView(effect: blurEffect)
         hudView.accessibilityIdentifier = "FMProgressHUD_hudView"
@@ -300,7 +305,7 @@ public class FMProgressHUD {
     private var backgrounBottomConstraint: NSLayoutConstraint?
     
     private var backgroundColorForStyle: UIColor {
-        switch FMProgressHUD.style {
+        switch FMProgressHUD.hudStyle {
         case .light:
             return .white
         case .dark:
@@ -311,7 +316,7 @@ public class FMProgressHUD {
     }
     
     private var foregroundColorForStyle: UIColor {
-        switch FMProgressHUD.style  {
+        switch FMProgressHUD.hudStyle  {
         case .light:
             return .black
         case .dark:

@@ -85,13 +85,13 @@ var animationType = FMProgressHUDAnimationType.flat // Can be: flat, native (iOS
 var hudViewCustomBlurEffect: UIBlurEffect?
 var hudForegroundColor = UIColor.black 
 var hudBackgroundColor = UIColor.white
-var backgroundLayerColor = UIColor.clear
+var backgroundColor = UIColor.clear
 var maskType = FMProgressHUDMaskType.clear  // Can be: clear, black, or custom
 var allowUserInteraction = true
 var cornerRadius: CGFloat = 14
 var ringThickness: CGFloat = 2
 var labelFontSize: CGFloat = 15
-var style = FMProgressHUDStyle.light // Can be: light, dark, or custom
+var hudStyle = FMProgressHUDStyle.light // Can be: light, dark, or custom
 ```
 ### Customise Loading Animation
 You can set loading animation using `FMProgressHUD.animationType`<br />
@@ -102,7 +102,7 @@ You can set mask using `FMProgressHUD.maskType`<br />
 For custom masks color, set `FMProgressHUD.backgroundLayerColor`<br />
 ![Added Swift Package in Project Explorer](./ReadMe_Resources/mask.png)
 
-### Customise Style
+### Customise HUD Style
 You can set style using `FMProgressHUD.style`<br />
-If `.custom` is selected, you can use customise using: `FMProgressHUD.hudViewCustomBlurEffect`, `FMProgressHUD.hudBackgroundColor`, and  `FMProgressHUD.hudForegroundColor`<br />
+If `.custom` is selected, you can customise using: `FMProgressHUD.hudViewCustomBlurEffect`, `FMProgressHUD.hudBackgroundColor`, and  `FMProgressHUD.hudForegroundColor`<br />
 ![Added Swift Package in Project Explorer](./ReadMe_Resources/style.png)
