@@ -74,44 +74,44 @@ public class FMProgressHUD {
             if hudStyle != .custom {
                 let blurEffectStyle: UIBlurEffect.Style = hudStyle == .dark ? .dark : .light
                 let blurEffect = UIBlurEffect(style: blurEffectStyle)
-                FMProgressHUD.sharedView.hudView.effect = blurEffect
+                FMProgressHUD.shared.hudView.effect = blurEffect
             } else {
-                FMProgressHUD.sharedView.hudView.effect = hudViewCustomBlurEffect
+                FMProgressHUD.shared.hudView.effect = hudViewCustomBlurEffect
             }
-            let foregroundColorForStyle = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.hudView.backgroundColor = FMProgressHUD.sharedView.backgroundColorForStyle.withAlphaComponent(0.6)
-            FMProgressHUD.sharedView.backgroundRingView.strokeColor = foregroundColorForStyle.withAlphaComponent(0.1)
-            FMProgressHUD.sharedView.nativeSpinner.color = foregroundColorForStyle
-            FMProgressHUD.sharedView.flatSpinner.strokeColor = foregroundColorForStyle
-            FMProgressHUD.sharedView.statusLabel.textColor = foregroundColorForStyle
-            FMProgressHUD.sharedView.imageView?.tintColor = foregroundColorForStyle
+            let foregroundColorForStyle = FMProgressHUD.shared.foregroundColorForStyle
+            FMProgressHUD.shared.hudView.backgroundColor = FMProgressHUD.shared.backgroundColorForStyle.withAlphaComponent(0.6)
+            FMProgressHUD.shared.backgroundRingView.strokeColor = foregroundColorForStyle.withAlphaComponent(0.1)
+            FMProgressHUD.shared.nativeSpinner.color = foregroundColorForStyle
+            FMProgressHUD.shared.flatSpinner.strokeColor = foregroundColorForStyle
+            FMProgressHUD.shared.statusLabel.textColor = foregroundColorForStyle
+            FMProgressHUD.shared.imageView?.tintColor = foregroundColorForStyle
         }
     }
     
     /// HUD background's background color - default is `UIColor.clear`
     public static var backgroundColor = UIColor.clear {
         didSet {
-            FMProgressHUD.sharedView.backgroundView.backgroundColor = backgroundColor
+            FMProgressHUD.shared.backgroundView.backgroundColor = backgroundColor
         }
     }
     
     /// HUD foregorund color  - default is `UIColor.black`
     public static var hudForegroundColor = UIColor.black {
         didSet {
-            let foregroundColorForStyle = FMProgressHUD.sharedView.foregroundColorForStyle
-            FMProgressHUD.sharedView.nativeSpinner.color = foregroundColorForStyle
-            FMProgressHUD.sharedView.flatSpinner.strokeColor = foregroundColorForStyle
-            FMProgressHUD.sharedView.backgroundRingView.strokeColor = foregroundColorForStyle.withAlphaComponent(0.1)
-            FMProgressHUD.sharedView.nativeSpinner.color = foregroundColorForStyle
-            FMProgressHUD.sharedView.statusLabel.textColor = foregroundColorForStyle
-            FMProgressHUD.sharedView.imageView?.tintColor = foregroundColorForStyle
+            let foregroundColorForStyle = FMProgressHUD.shared.foregroundColorForStyle
+            FMProgressHUD.shared.nativeSpinner.color = foregroundColorForStyle
+            FMProgressHUD.shared.flatSpinner.strokeColor = foregroundColorForStyle
+            FMProgressHUD.shared.backgroundRingView.strokeColor = foregroundColorForStyle.withAlphaComponent(0.1)
+            FMProgressHUD.shared.nativeSpinner.color = foregroundColorForStyle
+            FMProgressHUD.shared.statusLabel.textColor = foregroundColorForStyle
+            FMProgressHUD.shared.imageView?.tintColor = foregroundColorForStyle
         }
     }
     
     /// HUD's background color - default is `UIColor.white`
     public static var hudBackgroundColor = UIColor.white {
         didSet {
-            FMProgressHUD.sharedView.hudView.backgroundColor = FMProgressHUD.sharedView.backgroundColorForStyle
+            FMProgressHUD.shared.hudView.backgroundColor = FMProgressHUD.shared.backgroundColorForStyle
         }
     }
     
@@ -120,11 +120,11 @@ public class FMProgressHUD {
         didSet {
             switch maskType {
             case .black:
-                FMProgressHUD.sharedView.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.4)
+                FMProgressHUD.shared.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.4)
             case .custom:
-                FMProgressHUD.sharedView.backgroundView.backgroundColor = FMProgressHUD.backgroundColor
+                FMProgressHUD.shared.backgroundView.backgroundColor = FMProgressHUD.backgroundColor
             default:
-                FMProgressHUD.sharedView.backgroundView.backgroundColor = .clear
+                FMProgressHUD.shared.backgroundView.backgroundColor = .clear
             }
         }
     }
@@ -133,7 +133,7 @@ public class FMProgressHUD {
     public static var hudViewCustomBlurEffect: UIBlurEffect? {
         didSet {
             if hudStyle == .custom {
-                FMProgressHUD.sharedView.hudView.effect = hudViewCustomBlurEffect
+                FMProgressHUD.shared.hudView.effect = hudViewCustomBlurEffect
             }
         }
     }
@@ -141,23 +141,23 @@ public class FMProgressHUD {
     /// Whether or not user interactions are allowed while the HUD is shown - default is `false`
     public static var allowUserInteraction = true {
         didSet {
-            FMProgressHUD.sharedView.backgroundView.disableTouch = !allowUserInteraction
+            FMProgressHUD.shared.backgroundView.disableTouch = !allowUserInteraction
         }
     }
     
     /// Corner radius of the HUD - default is `14`
     public static var cornerRadius: CGFloat = 14 {
         didSet {
-            FMProgressHUD.sharedView.hudView.layer.cornerRadius = cornerRadius
+            FMProgressHUD.shared.hudView.layer.cornerRadius = cornerRadius
         }
     }
     
     /// Ring thickness of the ring spinner - default is `2`
     public static var ringThickness: CGFloat = 2 {
         didSet {
-            FMProgressHUD.sharedView.flatSpinner.strokeThickness = ringThickness
-            FMProgressHUD.sharedView.ringView.strokeThickness = ringThickness
-            FMProgressHUD.sharedView.backgroundRingView.strokeThickness = ringThickness
+            FMProgressHUD.shared.flatSpinner.strokeThickness = ringThickness
+            FMProgressHUD.shared.ringView.strokeThickness = ringThickness
+            FMProgressHUD.shared.backgroundRingView.strokeThickness = ringThickness
         }
     }
     
@@ -165,22 +165,22 @@ public class FMProgressHUD {
     /// Ring radius of the ring spinner - default is `18`
     private static var ringRadius: CGFloat = 18 {
         didSet {
-            FMProgressHUD.sharedView.flatSpinner.radius = ringRadius
-            FMProgressHUD.sharedView.ringView.radius = ringRadius
-            FMProgressHUD.sharedView.backgroundRingView.radius = ringRadius
+            FMProgressHUD.shared.flatSpinner.radius = ringRadius
+            FMProgressHUD.shared.ringView.radius = ringRadius
+            FMProgressHUD.shared.backgroundRingView.radius = ringRadius
         }
     }
     
     /// Status label font size - default is `15`
     public static var labelFontSize: CGFloat = 15 {
         didSet {
-            FMProgressHUD.sharedView.statusLabel.font = UIFont.systemFont(ofSize: labelFontSize)
+            FMProgressHUD.shared.statusLabel.font = UIFont.systemFont(ofSize: labelFontSize)
         }
     }
     
     // MARK: Static constants
     
-    private static let sharedView = FMProgressHUD()
+    private static let shared = FMProgressHUD()
     private static let VERTICAL_SPACING: CGFloat = 12
     private static let HORIZONTAL_SPACING: CGFloat = 12
     
@@ -359,7 +359,7 @@ public class FMProgressHUD {
     /// - parameters:
     ///     - status: optional status to show with the loading spinner. Default is nil
     public static func show(status: String? = nil) {
-        FMProgressHUD.sharedView.show(status: status)
+        FMProgressHUD.shared.show(status: status)
     }
     
     /// Shows image HUD with optional status.
@@ -367,7 +367,7 @@ public class FMProgressHUD {
     ///     - progress: optional loading progress from 0 to 1
     ///     - status: optional status to show with the loading spinner. Default is nil
     public static func show(progress: CGFloat, status: String? = nil) {
-        FMProgressHUD.sharedView.show(progress: progress, status: status)
+        FMProgressHUD.shared.show(progress: progress, status: status)
     }
     
     /// Shows progress loading HUD with optional status.
@@ -375,33 +375,33 @@ public class FMProgressHUD {
     ///     - image: image to show
     ///     - status: optional status to show with the loading spinner. Default is nil
     public static func show(image: UIImage, status: String? = nil) {
-        FMProgressHUD.sharedView.show(image: image, status: status)
+        FMProgressHUD.shared.show(image: image, status: status)
     }
     
     /// Show info HUD with SFSymbol's "info.circle"  icon
     /// - parameter status: optional status to show with the (i) symbol. Default is nil
     public static func showInfo(status: String? = nil) {
         guard let image = UIImage(systemName: "info.circle") else { return }
-        FMProgressHUD.sharedView.show(image:image , status: status)
+        FMProgressHUD.shared.show(image:image , status: status)
     }
     
     /// Show success HUD with SFSymbol's "checkmark"  icon
     /// - parameter status: optional status to show with the success tick. Default is nil
     public static func showSuccess(status: String? = nil) {
         guard let image = UIImage(systemName: "checkmark") else { return }
-        FMProgressHUD.sharedView.show(image: image, status: status)
+        FMProgressHUD.shared.show(image: image, status: status)
     }
     
     /// Show error HUD with SFSymbol's "xmark"  icon
     /// - parameter status: optional status to show with the X mark. Default is nil
     public static func showError(status: String? = nil) {
         guard let image = UIImage(systemName: "xmark") else { return }
-        FMProgressHUD.sharedView.show(image: image, status: status)
+        FMProgressHUD.shared.show(image: image, status: status)
     }
     
     /// Dismiss the HUD
     public static func dismiss() {
-        FMProgressHUD.sharedView.dismiss()
+        FMProgressHUD.shared.dismiss()
     }
     
     // MARK: Instance methods

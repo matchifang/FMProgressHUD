@@ -27,9 +27,9 @@ HUD should show either one of the following combinations:
 2. In Project Settings -> Swift Package Manager, click +, paste the github URL and select the version settings
 ![Adding Swift Packages](./ReadMe_Resources/2_adding_package.png)
 
-3. Added packages are shown under Project Settings -> Swift Package Manager and in Project Explorer
+3. Added packages are shown under Project Settings -> Swift Package Manager and in Source Control Navigator
 ![Added Swift Package in ](./ReadMe_Resources/4_package_added.png)
-![Added Swift Package in Project Explorer](./ReadMe_Resources/5_package_shown.png)
+![Added Swift Package in Source Control Navigator](./ReadMe_Resources/5_package_shown.png)
 
 4. Add `import FMProgressHUD` to files where you want to use the HUD<br />
 
@@ -38,8 +38,7 @@ HUD should show either one of the following combinations:
 2. Add `import FMProgressHUD`<br />
 
 ## Usage
-
-You can show different type of HUDs using these methods:
+`FMProgressHUD` is a singleton class that provides static properties to configure the HUD and static methods to show the HUD. No initialisation is required.<br />
 ```swift
 // show indefinite loading spinner
 FMProgressHUD.show()
@@ -65,7 +64,7 @@ FMProgressHUD.show(image: image, status: "Contact added")
 FMProgressHUD.dismiss()
 ```
 
-FMProgressHUD static method configurations:
+FMProgressHUD static methods:
 ```swift
 static func show(status: String? = nil)
 static func showInfo(status: String? = nil)
@@ -78,31 +77,31 @@ static func show(image: UIImage, status: String? = nil)
 
 The following fields can be customised:
 ```swift
+var animationType = FMProgressHUDAnimationType.flat // Can be: flat, native (iOS native UIActicityIndicatorView)
+var maskType = FMProgressHUDMaskType.clear  // Can be: clear, black, or custom
+var hudStyle = FMProgressHUDStyle.light // Can be: light, dark, or custom
+var backgroundColor = UIColor.clear
+var hudForegroundColor = UIColor.black 
+var hudBackgroundColor = UIColor.white
+var hudViewCustomBlurEffect: UIBlurEffect?
+var allowUserInteraction = true
 var fadeInAnimationDuration: TimeInterval = 0.15
 var fadeOutAnimationDuration: TimeInterval = 0.15
 var imageSize = CGSize(width: 28, height: 28)
-var animationType = FMProgressHUDAnimationType.flat // Can be: flat, native (iOS native UIActicityIndicatorView)
-var hudViewCustomBlurEffect: UIBlurEffect?
-var hudForegroundColor = UIColor.black 
-var hudBackgroundColor = UIColor.white
-var backgroundColor = UIColor.clear
-var maskType = FMProgressHUDMaskType.clear  // Can be: clear, black, or custom
-var allowUserInteraction = true
 var cornerRadius: CGFloat = 14
 var ringThickness: CGFloat = 2
 var labelFontSize: CGFloat = 15
-var hudStyle = FMProgressHUDStyle.light // Can be: light, dark, or custom
 ```
 ### Customise Loading Animation
 You can set loading animation using `FMProgressHUD.animationType`<br />
-![Added Swift Package in Project Explorer](./ReadMe_Resources/loading.png)
+![Added Swift Package in Source Control Navigator](./ReadMe_Resources/loading.png)
 
 ### Customise Mask
 You can set mask using `FMProgressHUD.maskType`<br />
-For custom masks color, set `FMProgressHUD.backgroundLayerColor`<br />
-![Added Swift Package in Project Explorer](./ReadMe_Resources/mask.png)
+For custom masks color, set `FMProgressHUD.backgroundColor`<br /><br />
+![Added Swift Package in Source Control Navigator](./ReadMe_Resources/mask.png)
 
 ### Customise HUD Style
-You can set style using `FMProgressHUD.style`<br />
-If `.custom` is selected, you can customise using: `FMProgressHUD.hudViewCustomBlurEffect`, `FMProgressHUD.hudBackgroundColor`, and  `FMProgressHUD.hudForegroundColor`<br />
-![Added Swift Package in Project Explorer](./ReadMe_Resources/style.png)
+You can set style using `FMProgressHUD.hudStyle`<br /><br />
+If `.custom` is selected, you can customise it by setting: `FMProgressHUD.hudViewCustomBlurEffect`, `FMProgressHUD.hudBackgroundColor`, and  `FMProgressHUD.hudForegroundColor`<br />
+![Added Swift Package in Source Control Navigator](./ReadMe_Resources/style.png)
