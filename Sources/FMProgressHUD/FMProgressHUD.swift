@@ -62,6 +62,10 @@ public class FMProgressHUD {
     /// Fade out animation duration when a HUD is dismissed - default is `0.15`
     public static var fadeOutAnimationDuration: TimeInterval = 0.15
     
+    /// Duration of how long the HUD is shown. This is only used when showing info, success, error and other custom images.
+    /// It is not applicable for showing loading spinner and progress - default is `2`
+    public static var showDuration: TimeInterval = 2
+    
     /// Image size - default is `CGSize(width: 28, height: 28)`
     public static var imageSize = CGSize(width: 28, height: 28)
     
@@ -541,7 +545,7 @@ public class FMProgressHUD {
                 UIAccessibility.post(notification: .screenChanged, argument: nil)
                 UIAccessibility.post(notification: .announcement, argument: self.statusLabel.text)
                 if autoDismiss {
-                    self.fadeOutTimer = Timer(timeInterval: FMProgressHUD.fadeOutAnimationDuration,
+                    self.fadeOutTimer = Timer(timeInterval: FMProgressHUD.showDuration,
                                               target: self,
                                               selector: #selector(self.dismiss),
                                               userInfo: nil,
