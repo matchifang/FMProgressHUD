@@ -68,7 +68,7 @@ public class FMProgressHUD {
     /// Animation of the loading spinner - default is `FMProgressHUDAnimationType.flat`
     public static var animationType = FMProgressHUDAnimationType.flat
     
-    /// Style that determines foregorund, background, and blur effect colors  - default is `FMProgressHUDStyle.light`
+    /// Style that determines foreground, background, and blur effect colors  - default is `FMProgressHUDStyle.light`
     public static var hudStyle = FMProgressHUDStyle.light {
         didSet {
             if hudStyle != .custom {
@@ -95,7 +95,7 @@ public class FMProgressHUD {
         }
     }
     
-    /// HUD foregorund color  - default is `UIColor.black`
+    /// HUD foreground color  - default is `UIColor.black`
     public static var hudForegroundColor = UIColor.black {
         didSet {
             let foregroundColorForStyle = FMProgressHUD.shared.foregroundColorForStyle
@@ -302,7 +302,7 @@ public class FMProgressHUD {
     
     private var imageView: UIImageView?
     private var fadeOutTimer: Timer?
-    private var backgrounBottomConstraint: NSLayoutConstraint?
+    private var backgroundBottomConstraint: NSLayoutConstraint?
     
     private var backgroundColorForStyle: UIColor {
         switch FMProgressHUD.hudStyle {
@@ -359,7 +359,9 @@ public class FMProgressHUD {
     /// - parameters:
     ///     - status: optional status to show with the loading spinner. Default is nil
     public static func show(status: String? = nil) {
-        FMProgressHUD.shared.show(status: status)
+        DispatchQueue.main.async {
+            FMProgressHUD.shared.show(status: status)
+        }
     }
     
     /// Shows image HUD with optional status.
@@ -367,7 +369,9 @@ public class FMProgressHUD {
     ///     - progress: optional loading progress from 0 to 1
     ///     - status: optional status to show with the loading spinner. Default is nil
     public static func show(progress: CGFloat, status: String? = nil) {
-        FMProgressHUD.shared.show(progress: progress, status: status)
+        DispatchQueue.main.async {
+            FMProgressHUD.shared.show(progress: progress, status: status)
+        }
     }
     
     /// Shows progress loading HUD with optional status.
@@ -375,33 +379,43 @@ public class FMProgressHUD {
     ///     - image: image to show
     ///     - status: optional status to show with the loading spinner. Default is nil
     public static func show(image: UIImage, status: String? = nil) {
-        FMProgressHUD.shared.show(image: image, status: status)
+        DispatchQueue.main.async {
+            FMProgressHUD.shared.show(image: image, status: status)
+        }
     }
     
     /// Show info HUD with SFSymbol's "info.circle"  icon
     /// - parameter status: optional status to show with the (i) symbol. Default is nil
     public static func showInfo(status: String? = nil) {
         guard let image = UIImage(systemName: "info.circle") else { return }
-        FMProgressHUD.shared.show(image:image , status: status)
+        DispatchQueue.main.async {
+            FMProgressHUD.shared.show(image:image , status: status)
+        }
     }
     
     /// Show success HUD with SFSymbol's "checkmark"  icon
     /// - parameter status: optional status to show with the success tick. Default is nil
     public static func showSuccess(status: String? = nil) {
         guard let image = UIImage(systemName: "checkmark") else { return }
-        FMProgressHUD.shared.show(image: image, status: status)
+        DispatchQueue.main.async {
+            FMProgressHUD.shared.show(image: image, status: status)
+        }
     }
     
     /// Show error HUD with SFSymbol's "xmark"  icon
     /// - parameter status: optional status to show with the X mark. Default is nil
     public static func showError(status: String? = nil) {
         guard let image = UIImage(systemName: "xmark") else { return }
-        FMProgressHUD.shared.show(image: image, status: status)
+        DispatchQueue.main.async {
+            FMProgressHUD.shared.show(image: image, status: status)
+        }
     }
     
     /// Dismiss the HUD
     public static func dismiss() {
-        FMProgressHUD.shared.dismiss()
+        DispatchQueue.main.async {
+            FMProgressHUD.shared.dismiss()
+        }
     }
     
     // MARK: Instance methods
@@ -413,7 +427,7 @@ public class FMProgressHUD {
     
     @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-            backgrounBottomConstraint?.constant = -keyboardFrame.height
+            backgroundBottomConstraint?.constant = -keyboardFrame.height
             UIView.animate(withDuration: 0.5) { [weak self] in
                 self?.backgroundView.layoutIfNeeded()
             }
@@ -421,7 +435,7 @@ public class FMProgressHUD {
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
-        backgrounBottomConstraint?.constant = 0
+        backgroundBottomConstraint?.constant = 0
         UIView.animate(withDuration: 0.5) { [weak self] in
             self?.backgroundView.layoutIfNeeded()
         }
@@ -432,7 +446,7 @@ public class FMProgressHUD {
             view.removeFromSuperview()
         }
         backgroundView.accessibilityViewIsModal = true
-                
+        
         // Add image
         if let image = image {
             let imageView = UIImageView(image: image)
@@ -446,7 +460,7 @@ public class FMProgressHUD {
                 imageView.widthAnchor.constraint(equalToConstant: FMProgressHUD.imageSize.width)
             ])
             
-        // Add loading spinner or progress spinner
+            // Add loading spinner or progress spinner
         } else {
             if progress >= 0 {
                 stackView.addArrangedSubview(backgroundRingView)
@@ -463,8 +477,7 @@ public class FMProgressHUD {
             stackView.addArrangedSubview(statusLabel)
         }
         
-        let duration = image == nil ? nil : TimeInterval(min(CGFloat((status ?? "").count) * 0.6 + 0.5, CGFloat.greatestFiniteMagnitude))
-        addHudView(duration: duration)
+        addHudView(autoDismiss: image != nil)
     }
     
     @objc func dismiss() {
@@ -493,22 +506,22 @@ public class FMProgressHUD {
         }
     }
     
-    private func addHudView(duration: TimeInterval?) {
+    private func addHudView(autoDismiss: Bool) {
         guard let frontWindow = frontWindow else { return }
         
         frontWindow.addSubview(backgroundView)
-        backgrounBottomConstraint = backgroundView.bottomAnchor.constraint(equalTo: frontWindow.bottomAnchor)
+        backgroundBottomConstraint = backgroundView.bottomAnchor.constraint(equalTo: frontWindow.bottomAnchor)
         NSLayoutConstraint.activate([
             backgroundView.leadingAnchor.constraint(equalTo: frontWindow.leadingAnchor),
             backgroundView.topAnchor.constraint(equalTo: frontWindow.topAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: frontWindow.trailingAnchor),
-            backgrounBottomConstraint!,
+            backgroundBottomConstraint!,
         ])
         
         // adjust bottom anchor to keyboard height if keyboard is shown
         if FMKeyboardStateListener.shared.keyboardIsVisible,
            let keyboardFrame = FMKeyboardStateListener.shared.keyboardFrame {
-            backgrounBottomConstraint?.constant = -keyboardFrame.height
+            backgroundBottomConstraint?.constant = -keyboardFrame.height
         }
         
         if backgroundView.alpha == 0 {
@@ -527,8 +540,12 @@ public class FMProgressHUD {
                 guard let self = self else { return }
                 UIAccessibility.post(notification: .screenChanged, argument: nil)
                 UIAccessibility.post(notification: .announcement, argument: self.statusLabel.text)
-                if let duration = duration {
-                    self.fadeOutTimer = Timer(timeInterval: duration, target: self, selector: #selector(self.dismiss), userInfo: nil, repeats: false)
+                if autoDismiss {
+                    self.fadeOutTimer = Timer(timeInterval: FMProgressHUD.fadeOutAnimationDuration,
+                                              target: self,
+                                              selector: #selector(self.dismiss),
+                                              userInfo: nil,
+                                              repeats: false)
                     RunLoop.main.add(self.fadeOutTimer!, forMode: .common)
                 }
             }
@@ -555,5 +572,5 @@ public class FMProgressHUD {
             view.alpha = 0
         }
     }
-
+    
 }
